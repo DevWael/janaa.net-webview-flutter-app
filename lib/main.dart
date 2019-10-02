@@ -61,6 +61,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final _key = UniqueKey();
   WebViewController _webController;
+  String _url = 'https://janaa.net/';
+  String _cart = 'cart';
+  String _my_account = 'my-account';
+  String _shop = 'shop';
 
   @override
   Widget build(BuildContext context) {
@@ -75,10 +79,33 @@ class _MyHomePageState extends State<MyHomePage> {
           // Here we take the value from the MyHomePage object that was created by
           // the App.build method, and use it to set our appbar title.
           title: Text(widget.title),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.home),
+              onPressed: go_to_home,
+            ),
+            IconButton(
+              icon: Icon(Icons.shop),
+              onPressed: go_to_shop,
+            ),
+            IconButton(
+              icon: Icon(Icons.shopping_cart),
+              onPressed: go_to_cart,
+            ),
+            IconButton(
+              icon: Icon(Icons.supervisor_account),
+              onPressed: go_to_myaccount,
+            ),
+            IconButton(
+              icon: Icon(Icons.refresh),
+              onPressed: reload_page,
+            ),
+
+          ],
         ),
         body: WebView(
           key: _key,
-          initialUrl: "https://janaa.net/ar/",
+          initialUrl: _url,
           javascriptMode: JavascriptMode.unrestricted,
           onWebViewCreated: (WebViewController _tmpWebController) {
             _webController = _tmpWebController;
@@ -88,8 +115,25 @@ class _MyHomePageState extends State<MyHomePage> {
         );
   }
 
-  void handleButtonPressed() {
-    print('test');
-    _webController.;
+
+  void reload_page() {
+    _webController.reload();
+  }
+
+  void go_to_myaccount() {
+    //_webController.reload();
+    _webController.loadUrl(_url + _my_account);
+  }
+
+  void go_to_cart() {
+    _webController.loadUrl(_url + _cart);
+  }
+
+  void go_to_shop() {
+    _webController.loadUrl(_url + _shop);
+  }
+
+  void go_to_home() {
+    _webController.loadUrl(_url);
   }
 }
