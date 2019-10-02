@@ -58,7 +58,10 @@ class _MyHomePageState extends State<MyHomePage> {
       _counter++;
     });
   }
+
   final _key = UniqueKey();
+  WebViewController _webController;
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -77,8 +80,16 @@ class _MyHomePageState extends State<MyHomePage> {
           key: _key,
           initialUrl: "https://janaa.net/ar/",
           javascriptMode: JavascriptMode.unrestricted,
+          onWebViewCreated: (WebViewController _tmpWebController) {
+            _webController = _tmpWebController;
+          },
         )
-      // This trailing comma makes auto-formatting nicer for build methods.
-    );
+        // This trailing comma makes auto-formatting nicer for build methods.
+        );
+  }
+
+  void handleButtonPressed() {
+    print('test');
+    _webController.;
   }
 }
