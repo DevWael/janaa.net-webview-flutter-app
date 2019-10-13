@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:janastore/config.dart';
 
 void main() => runApp(MyApp());
 
@@ -31,12 +32,13 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final _key = UniqueKey();
   WebViewController _webController;
-  String _url = 'https://janaa.net/';
-  String _cart = 'cart';
-  String _my_account = 'my-account';
-  String _shop = 'shop';
+  String _url = app_config.siteUrl;
+  String _cart = app_config.cart;
+  String _myAccount = app_config.myAccount;
+  String _shop = app_config.shop;
 
-  _open_link(url) async {
+
+  _openLink(url) async {
     if (await canLaunch(url)) {
       await launch(url);
     } else {
@@ -56,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.home),
-            onPressed: go_to_home,
+            onPressed: goToHome,
           ),
 //            IconButton(
 //              icon: Icon(Icons.shop),
@@ -64,11 +66,11 @@ class _MyHomePageState extends State<MyHomePage> {
 //            ),
           IconButton(
             icon: Icon(Icons.shopping_cart),
-            onPressed: go_to_cart,
+            onPressed: goToCart,
           ),
           IconButton(
             icon: Icon(Icons.supervisor_account),
-            onPressed: go_to_myaccount,
+            onPressed: goToMyAccount,
           ),
 //            IconButton(
 //              icon: Icon(Icons.refresh),
@@ -111,7 +113,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
-            CustomListTile(Icons.person, 'Profile', () => {}),
+            CustomListTile(Icons.person, 'Profile', () => {
+
+            }),
             CustomListTile(FontAwesomeIcons.shoppingBag, 'Orders', () => {}),
             CustomListTile(FontAwesomeIcons.store, 'Shop', () => {}),
             CustomListTile(FontAwesomeIcons.shoppingBasket, 'Cart', () => {}),
@@ -129,33 +133,33 @@ class _MyHomePageState extends State<MyHomePage> {
                     children: <Widget>[
                       InkWell(
                           onTap: () {
-                            _open_link('https://fb.com');
+                            _openLink('https://fb.com');
                           },
                           child: Icon(FontAwesomeIcons.facebookSquare,
                               color: hexToColor('#4267B2'), size: 30.0)),
                       InkWell(
                         onTap: () {
-                          _open_link('https://wa.me/15551234567');
+                          _openLink('https://wa.me/15551234567');
                         },
                         child: Icon(FontAwesomeIcons.whatsappSquare,
                             color: hexToColor('#128C7E'), size: 30.0),
                       ),
                       InkWell(
                           onTap: () {
-                            _open_link('https://instagram.com');
+                            _openLink('https://instagram.com');
                           },
                           child: Icon(FontAwesomeIcons.instagram,
                               color: hexToColor('#962FBF'), size: 30.0)),
                       InkWell(
                         onTap: () {
-                          _open_link('https://youtube.com');
+                          _openLink('https://youtube.com');
                         },
                         child: Icon(FontAwesomeIcons.youtubeSquare,
                             color: hexToColor('#F70002'), size: 30.0),
                       ),
                       InkWell(
                         onTap: () {
-                          _open_link('https://maroof.sa');
+                          _openLink('https://maroof.sa');
                         },
                         child: Image.asset(
                           'images/maroof_logo.png',
@@ -182,24 +186,24 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void reload_page() {
+  void reloadPage() {
     _webController.reload();
   }
 
-  void go_to_myaccount() {
+  void goToMyAccount() {
     //_webController.reload();
-    _webController.loadUrl(_url + _my_account);
+    _webController.loadUrl(_url + _myAccount);
   }
 
-  void go_to_cart() {
+  void goToCart() {
     _webController.loadUrl(_url + _cart);
   }
 
-  void go_to_shop() {
+  void goToShop() {
     _webController.loadUrl(_url + _shop);
   }
 
-  void go_to_home() {
+  void goToHome() {
     _webController.loadUrl(_url);
   }
 }
@@ -222,7 +226,7 @@ class CustomListTile extends StatelessWidget {
           splashColor: Colors.lightGreenAccent,
           onTap: onTap,
           child: Container(
-            height: 50,
+            height: 55,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
