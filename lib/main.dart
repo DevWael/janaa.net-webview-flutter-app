@@ -37,7 +37,6 @@ class _MyHomePageState extends State<MyHomePage> {
   String _myAccount = app_config.myAccount;
   String _shop = app_config.shop;
 
-
   _openLink(url) async {
     if (await canLaunch(url)) {
       await launch(url);
@@ -53,128 +52,126 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.home),
-            onPressed: goToHome,
-          ),
+        appBar: AppBar(
+          title: Text(widget.title),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.home),
+              onPressed: goToHome,
+            ),
 //            IconButton(
 //              icon: Icon(Icons.shop),
 //              onPressed: go_to_shop,
 //            ),
-          IconButton(
-            icon: Icon(Icons.shopping_cart),
-            onPressed: goToCart,
-          ),
-          IconButton(
-            icon: Icon(Icons.supervisor_account),
-            onPressed: goToMyAccount,
-          ),
+            IconButton(
+              icon: Icon(Icons.shopping_cart),
+              onPressed: goToCart,
+            ),
+            IconButton(
+              icon: Icon(Icons.supervisor_account),
+              onPressed: goToMyAccount,
+            ),
 //            IconButton(
 //              icon: Icon(Icons.refresh),
 //              onPressed: reload_page,
 //            ),
-        ],
-      ),
-      drawer: Drawer(
-        child: ListView(
-          children: <Widget>[
-            DrawerHeader(
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(colors: <Color>[
-                Colors.green,
-                Colors.lightGreenAccent,
-              ])),
-              child: Container(
-                child: Column(
-                  children: <Widget>[
-                    Material(
-                      elevation: 5,
-                      borderRadius: BorderRadius.all(Radius.circular(50.0)),
-                      child: Padding(
-                        padding: EdgeInsets.all(15.0),
-                        child: Image.asset(
-                          'images/logo.png',
-                          width: 60,
-                          height: 60,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'Jana Store',
-                        style: TextStyle(color: Colors.white, fontSize: 20.0),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-            CustomListTile(Icons.person, 'Profile', () => {
-
-            }),
-            CustomListTile(FontAwesomeIcons.shoppingBag, 'Orders', () => {}),
-            CustomListTile(FontAwesomeIcons.store, 'Shop', () => {}),
-            CustomListTile(FontAwesomeIcons.shoppingBasket, 'Cart', () => {}),
-            CustomListTile(Icons.settings, 'Settings', () => {}),
-            CustomListTile(FontAwesomeIcons.exclamationCircle, 'Exit', () {
-              Navigator.pop(context);
-            }),
-            Container(
-              child: Align(
-                alignment: FractionalOffset.bottomCenter,
+          ],
+        ),
+        drawer: Drawer(
+          child: ListView(
+            children: <Widget>[
+              DrawerHeader(
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(colors: <Color>[
+                  Colors.green,
+                  Colors.lightGreenAccent,
+                ])),
                 child: Container(
-                  padding: EdgeInsets.all(15.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  child: Column(
                     children: <Widget>[
-                      InkWell(
-                          onTap: () {
-                            _openLink('https://fb.com');
-                          },
-                          child: Icon(FontAwesomeIcons.facebookSquare,
-                              color: hexToColor('#4267B2'), size: 30.0)),
-                      InkWell(
-                        onTap: () {
-                          _openLink('https://wa.me/15551234567');
-                        },
-                        child: Icon(FontAwesomeIcons.whatsappSquare,
-                            color: hexToColor('#128C7E'), size: 30.0),
-                      ),
-                      InkWell(
-                          onTap: () {
-                            _openLink('https://instagram.com');
-                          },
-                          child: Icon(FontAwesomeIcons.instagram,
-                              color: hexToColor('#962FBF'), size: 30.0)),
-                      InkWell(
-                        onTap: () {
-                          _openLink('https://youtube.com');
-                        },
-                        child: Icon(FontAwesomeIcons.youtubeSquare,
-                            color: hexToColor('#F70002'), size: 30.0),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          _openLink('https://maroof.sa');
-                        },
-                        child: Image.asset(
-                          'images/maroof_logo.png',
-                          width: 30,
-                          height: 30,
+                      Material(
+                        elevation: 5,
+                        borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                        child: Padding(
+                          padding: EdgeInsets.all(15.0),
+                          child: Image.asset(
+                            'images/logo.png',
+                            width: 60,
+                            height: 60,
+                          ),
                         ),
                       ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Jana Store',
+                          style: TextStyle(color: Colors.white, fontSize: 20.0),
+                        ),
+                      )
                     ],
                   ),
                 ),
               ),
-            ),
-          ],
+              CustomListTile(Icons.person, 'Profile', () => {}),
+              CustomListTile(FontAwesomeIcons.shoppingBag, 'Orders', () => {}),
+              CustomListTile(FontAwesomeIcons.store, 'Shop', () => {}),
+              CustomListTile(FontAwesomeIcons.shoppingBasket, 'Cart', () => {}),
+              CustomListTile(Icons.settings, 'Settings', () => {}),
+              CustomListTile(FontAwesomeIcons.exclamationCircle, 'Exit', () {
+                Navigator.pop(context);
+              }),
+              Container(
+                child: Align(
+                  alignment: FractionalOffset.bottomCenter,
+                  child: Container(
+                    padding: EdgeInsets.all(15.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        InkWell(
+                            onTap: () {
+                              _openLink(app_config.facebook);
+                            },
+                            child: Icon(FontAwesomeIcons.facebookSquare,
+                                color: hexToColor('#4267B2'), size: 30.0)),
+                        InkWell(
+                          onTap: () {
+                            _openLink(app_config.whatsapp);
+                          },
+                          child: Icon(FontAwesomeIcons.whatsappSquare,
+                              color: hexToColor('#128C7E'), size: 30.0),
+                        ),
+                        InkWell(
+                            onTap: () {
+                              _openLink(app_config.instagram);
+                            },
+                            child: Icon(FontAwesomeIcons.instagram,
+                                color: hexToColor('#962FBF'), size: 30.0)),
+                        InkWell(
+                          onTap: () {
+                            _openLink(app_config.youtube);
+                          },
+                          child: Icon(FontAwesomeIcons.youtubeSquare,
+                              color: hexToColor('#F70002'), size: 30.0),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            _openLink('https://maroof.sa');
+                          },
+                          child: Image.asset(
+                            'images/maroof_logo.png',
+                            width: 30,
+                            height: 30,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
-      ),
         body: WebView(
           key: _key,
           initialUrl: _url,
@@ -182,8 +179,7 @@ class _MyHomePageState extends State<MyHomePage> {
           onWebViewCreated: (WebViewController _tmpWebController) {
             _webController = _tmpWebController;
           },
-        )
-    );
+        ));
   }
 
   void reloadPage() {
