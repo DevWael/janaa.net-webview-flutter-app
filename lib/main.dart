@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() => runApp(MyApp());
 
-class MyA
-pp extends StatelessWidget {
+class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'JanaStore',
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
@@ -35,77 +36,141 @@ class _MyHomePageState extends State<MyHomePage> {
   String _my_account = 'my-account';
   String _shop = 'shop';
 
+  _open_link(url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  Color hexToColor(String hexString, {String alphaChannel = 'FF'}) {
+    return Color(int.parse(hexString.replaceFirst('#', '0x$alphaChannel')));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.home),
-              onPressed: go_to_home,
-            ),
+      appBar: AppBar(
+        title: Text(widget.title),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.home),
+            onPressed: go_to_home,
+          ),
 //            IconButton(
 //              icon: Icon(Icons.shop),
 //              onPressed: go_to_shop,
 //            ),
-            IconButton(
-              icon: Icon(Icons.shopping_cart),
-              onPressed: go_to_cart,
-            ),
-            IconButton(
-              icon: Icon(Icons.supervisor_account),
-              onPressed: go_to_myaccount,
-            ),
+          IconButton(
+            icon: Icon(Icons.shopping_cart),
+            onPressed: go_to_cart,
+          ),
+          IconButton(
+            icon: Icon(Icons.supervisor_account),
+            onPressed: go_to_myaccount,
+          ),
 //            IconButton(
 //              icon: Icon(Icons.refresh),
 //              onPressed: reload_page,
 //            ),
-          ],
-        ),
-        drawer: Drawer(
-          child: ListView(
-            children: <Widget>[
-              DrawerHeader(
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(colors: <Color>[
-                  Colors.green,
-                  Colors.lightGreenAccent,
-                ])),
-                child: Container(
-                  child: Column(
-                    children: <Widget>[
-                      Material(
-                        elevation: 5,
-                        borderRadius: BorderRadius.all(Radius.circular(50.0)),
-                        child: Padding(
-                          padding: EdgeInsets.all(15.0),
-                          child: Image.asset(
-                            'images/logo.png',
-                            width: 60,
-                            height: 60,
-                          ),
+        ],
+      ),
+      drawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+            DrawerHeader(
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(colors: <Color>[
+                Colors.green,
+                Colors.lightGreenAccent,
+              ])),
+              child: Container(
+                child: Column(
+                  children: <Widget>[
+                    Material(
+                      elevation: 5,
+                      borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                      child: Padding(
+                        padding: EdgeInsets.all(15.0),
+                        child: Image.asset(
+                          'images/logo.png',
+                          width: 60,
+                          height: 60,
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          'Jana Store',
-                          style: TextStyle(color: Colors.white, fontSize: 20.0),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'Jana Store',
+                        style: TextStyle(color: Colors.white, fontSize: 20.0),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            CustomListTile(Icons.person, 'Profile', () => {}),
+            CustomListTile(FontAwesomeIcons.shoppingBag, 'Orders', () => {}),
+            CustomListTile(FontAwesomeIcons.store, 'Shop', () => {}),
+            CustomListTile(FontAwesomeIcons.shoppingBasket, 'Cart', () => {}),
+            CustomListTile(Icons.settings, 'Settings', () => {}),
+            CustomListTile(FontAwesomeIcons.exclamationCircle, 'Exit', () {
+              Navigator.pop(context);
+            }),
+            Container(
+              child: Align(
+                alignment: FractionalOffset.bottomCenter,
+                child: Container(
+                  padding: EdgeInsets.all(15.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      InkWell(
+                          onTap: () {
+                            _open_link('https://fb.com');
+                          },
+                          child: Icon(FontAwesomeIcons.facebookSquare,
+                              color: hexToColor('#4267B2'), size: 30.0)),
+                      InkWell(
+                        onTap: () {
+                          _open_link('https://wa.me/15551234567');
+                        },
+                        child: Icon(FontAwesomeIcons.whatsappSquare,
+                            color: hexToColor('#128C7E'), size: 30.0),
+                      ),
+                      InkWell(
+                          onTap: () {
+                            _open_link('https://instagram.com');
+                          },
+                          child: Icon(FontAwesomeIcons.instagram,
+                              color: hexToColor('#962FBF'), size: 30.0)),
+                      InkWell(
+                        onTap: () {
+                          _open_link('https://youtube.com');
+                        },
+                        child: Icon(FontAwesomeIcons.youtubeSquare,
+                            color: hexToColor('#F70002'), size: 30.0),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          _open_link('https://maroof.sa');
+                        },
+                        child: Image.asset(
+                          'images/maroof_logo.png',
+                          width: 30,
+                          height: 30,
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
               ),
-              CustomListTile(Icons.person, 'profile', () => {}),
-              CustomListTile(Icons.person, 'profile', () => {}),
-              CustomListTile(Icons.person, 'profile', () => {}),
-              CustomListTile(Icons.person, 'profile', () => {}),
-              CustomListTile(Icons.person, 'profile', () => {}),
-            ],
-          ),
+            ),
+          ],
         ),
+      ),
         body: WebView(
           key: _key,
           initialUrl: _url,
@@ -113,7 +178,8 @@ class _MyHomePageState extends State<MyHomePage> {
           onWebViewCreated: (WebViewController _tmpWebController) {
             _webController = _tmpWebController;
           },
-        ));
+        )
+    );
   }
 
   void reload_page() {
@@ -147,7 +213,6 @@ class CustomListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Padding(
       padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
       child: Container(
@@ -163,7 +228,10 @@ class CustomListTile extends StatelessWidget {
               children: <Widget>[
                 Row(
                   children: <Widget>[
-                    Icon(icon),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Icon(icon, color: Colors.grey.shade600),
+                    ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
