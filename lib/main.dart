@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/gestures.dart';
+//import 'package:flutter/gestures.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:janastore/config.dart';
+import 'package:janastore/CustomListTile.dart';
 import 'dart:io';
 
 void main() => runApp(MyApp());
@@ -13,11 +14,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'JanaStore',
+      title: app_config.appTitle,
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: MyHomePage(title: 'Jana'),
+      home: MyHomePage(title: app_config.appTitle),
     );
   }
 }
@@ -105,7 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          'Jana Store',
+                          app_config.appTitle,
                           style: TextStyle(color: Colors.white, fontSize: 20.0),
                         ),
                       )
@@ -221,49 +222,4 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class CustomListTile extends StatelessWidget {
-  IconData icon;
-  String text;
-  Function onTap;
 
-  CustomListTile(this.icon, this.text, this.onTap);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
-      child: Container(
-        decoration: BoxDecoration(
-            border: Border(bottom: BorderSide(color: Colors.grey.shade300))),
-        child: InkWell(
-          splashColor: Colors.lightGreenAccent,
-          onTap: onTap,
-          child: Container(
-            height: 55,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Icon(icon, color: Colors.grey.shade600),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        text,
-                        style: TextStyle(fontSize: 16.0),
-                      ),
-                    ),
-                  ],
-                ),
-                Icon(Icons.arrow_right),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}

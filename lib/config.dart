@@ -1,4 +1,5 @@
 class app_config {
+  static String appTitle = 'JanaStore';
   static String siteUrl = 'https://janaa.net/';
   static String cart = 'cart';
   static String myAccount = 'my-account';
