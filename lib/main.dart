@@ -146,26 +146,30 @@ class _MyHomePageState extends State<MyHomePage> {
                               _openLink(app_config.facebook);
                             },
                             child: Icon(FontAwesomeIcons.facebookSquare,
-                                color: hexToColor('#4267B2'), size: 30.0)),
+                                color: hexToColor(app_config.facebookColor),
+                                size: 30.0)),
                         InkWell(
                           onTap: () {
                             _openLink(app_config.whatsapp);
                           },
                           child: Icon(FontAwesomeIcons.whatsappSquare,
-                              color: hexToColor('#128C7E'), size: 30.0),
+                              color: hexToColor(app_config.whatsAppColor),
+                              size: 30.0),
                         ),
                         InkWell(
                             onTap: () {
                               _openLink(app_config.instagram);
                             },
                             child: Icon(FontAwesomeIcons.instagram,
-                                color: hexToColor('#962FBF'), size: 30.0)),
+                                color: hexToColor(app_config.instagramColor),
+                                size: 30.0)),
                         InkWell(
                           onTap: () {
                             _openLink(app_config.youtube);
                           },
                           child: Icon(FontAwesomeIcons.youtubeSquare,
-                              color: hexToColor('#F70002'), size: 30.0),
+                              color: hexToColor(app_config.youtubeColor),
+                              size: 30.0),
                         ),
                         InkWell(
                           onTap: () {
