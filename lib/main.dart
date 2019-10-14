@@ -4,6 +4,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:janastore/config.dart';
+import 'dart:io';
 
 void main() => runApp(MyApp());
 
@@ -112,13 +113,25 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
-              CustomListTile(Icons.person, 'Profile', () => {}),
-              CustomListTile(FontAwesomeIcons.shoppingBag, 'Orders', () => {}),
-              CustomListTile(FontAwesomeIcons.store, 'Shop', () => {}),
-              CustomListTile(FontAwesomeIcons.shoppingBasket, 'Cart', () => {}),
-              CustomListTile(Icons.settings, 'Settings', () => {}),
-              CustomListTile(FontAwesomeIcons.exclamationCircle, 'Exit', () {
+              CustomListTile(FontAwesomeIcons.home, 'Home', () {
                 Navigator.pop(context);
+                goToHome();
+              }),
+              CustomListTile(FontAwesomeIcons.user, 'Profile', () {
+                Navigator.pop(context);
+                goToMyAccount();
+              }),
+              CustomListTile(FontAwesomeIcons.store, 'Shop', () {
+                Navigator.pop(context);
+                goToShop();
+              }),
+              CustomListTile(FontAwesomeIcons.shoppingBasket, 'Cart', () {
+                Navigator.pop(context);
+                goToCart();
+              }),
+              //CustomListTile(FontAwesomeIcons.cog, 'Settings', () => {}),
+              CustomListTile(FontAwesomeIcons.exclamationCircle, 'Exit', () {
+                exit(0);
               }),
               Container(
                 child: Align(
