@@ -14,11 +14,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: app_config.appTitle,
+      title: AppConfig.appTitle,
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: MyHomePage(title: app_config.appTitle),
+      home: MyHomePage(title: AppConfig.appTitle),
     );
   }
 }
@@ -34,10 +34,10 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final _key = UniqueKey();
   WebViewController _webController;
-  String _url = app_config.siteUrl;
-  String _cart = app_config.cart;
-  String _myAccount = app_config.myAccount;
-  String _shop = app_config.shop;
+  String _url = AppConfig.siteUrl;
+  String _cart = AppConfig.cart;
+  String _myAccount = AppConfig.myAccount;
+  String _shop = AppConfig.shop;
 
   _openLink(url) async {
     if (await canLaunch(url)) {
@@ -106,7 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          app_config.appTitle,
+                          AppConfig.appTitle,
                           style: TextStyle(color: Colors.white, fontSize: 20.0),
                         ),
                       )
@@ -144,32 +144,32 @@ class _MyHomePageState extends State<MyHomePage> {
                       children: <Widget>[
                         InkWell(
                             onTap: () {
-                              _openLink(app_config.facebook);
+                              _openLink(AppConfig.facebook);
                             },
                             child: Icon(FontAwesomeIcons.facebookSquare,
-                                color: hexToColor(app_config.facebookColor),
+                                color: hexToColor(AppConfig.facebookColor),
                                 size: 30.0)),
                         InkWell(
                           onTap: () {
-                            _openLink(app_config.whatsapp);
+                            _openLink(AppConfig.whatsapp);
                           },
                           child: Icon(FontAwesomeIcons.whatsappSquare,
-                              color: hexToColor(app_config.whatsAppColor),
+                              color: hexToColor(AppConfig.whatsAppColor),
                               size: 30.0),
                         ),
                         InkWell(
                             onTap: () {
-                              _openLink(app_config.instagram);
+                              _openLink(AppConfig.instagram);
                             },
                             child: Icon(FontAwesomeIcons.instagram,
-                                color: hexToColor(app_config.instagramColor),
+                                color: hexToColor(AppConfig.instagramColor),
                                 size: 30.0)),
                         InkWell(
                           onTap: () {
-                            _openLink(app_config.youtube);
+                            _openLink(AppConfig.youtube);
                           },
                           child: Icon(FontAwesomeIcons.youtubeSquare,
-                              color: hexToColor(app_config.youtubeColor),
+                              color: hexToColor(AppConfig.youtubeColor),
                               size: 30.0),
                         ),
                         InkWell(
@@ -194,6 +194,7 @@ class _MyHomePageState extends State<MyHomePage> {
           key: _key,
           initialUrl: _url,
           javascriptMode: JavascriptMode.unrestricted,
+          userAgent: AppConfig.userAgent,
           onWebViewCreated: (WebViewController _tmpWebController) {
             _webController = _tmpWebController;
           },
