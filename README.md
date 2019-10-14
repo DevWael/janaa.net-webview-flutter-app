@@ -1,6 +1,6 @@
 # Janastore
 
-JanaStore Flutter App
+JanaStore Flutter WebView App
 
 ## Getting Started
 
