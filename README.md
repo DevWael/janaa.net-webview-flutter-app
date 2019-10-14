@@ -1,6 +1,6 @@
-# janastore
+# Janastore
 
-JanaStore App
+JanaStore Flutter App
 
 ## Getting Started
 
