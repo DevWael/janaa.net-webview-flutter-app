@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:janastore/route_generator.dart';
 //import 'package:flutter/gestures.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -18,7 +19,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: MyHomePage(title: AppConfig.appTitle),
+      initialRoute: '/',
+      onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
 }
@@ -130,7 +132,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.pop(context);
                 goToCart();
               }),
-              //CustomListTile(FontAwesomeIcons.cog, 'Settings', () => {}),
+              CustomListTile(FontAwesomeIcons.cog, 'Settings', () {
+                Navigator.pop(context);
+                Navigator.of(context).pushNamed('/settings');
+              }),
               CustomListTile(FontAwesomeIcons.exclamationCircle, 'Exit', () {
                 exit(0);
               }),
@@ -190,15 +195,16 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
         ),
-        body: WebView(
-          key: _key,
-          initialUrl: _url,
-          javascriptMode: JavascriptMode.unrestricted,
-          userAgent: AppConfig.userAgent,
-          onWebViewCreated: (WebViewController _tmpWebController) {
-            _webController = _tmpWebController;
-          },
-        ));
+//        body: WebView(
+//          key: _key,
+//          initialUrl: _url,
+//          javascriptMode: JavascriptMode.unrestricted,
+//          userAgent: AppConfig.userAgent,
+//          onWebViewCreated: (WebViewController _tmpWebController) {
+//            _webController = _tmpWebController;
+//          },
+//        )
+    );
   }
 
   void reloadPage() {

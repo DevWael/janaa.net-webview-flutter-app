@@ -1,0 +1,31 @@
+import 'package:flutter/material.dart';
+import 'package:janastore/main.dart';
+import 'package:janastore/settings_screen.dart';
+import 'package:janastore/config.dart';
+
+class RouteGenerator {
+  static Route<dynamic> generateRoute(RouteSettings settings) {
+    final args = settings.arguments;
+    switch (settings.name) {
+      case '/':
+        return MaterialPageRoute(builder: (_) => MyHomePage(title: AppConfig.appTitle,));
+      case '/settings':
+        return MaterialPageRoute(builder: (_) => SettingsPage(title: 'Settings',));
+      default:
+        return _errorRoute();
+    }
+  }
+
+  static Route<dynamic> _errorRoute() {
+    return MaterialPageRoute(builder: (_) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text('Error 404!'),
+        ),
+        body: Center(
+          child: Text('The Requested Screen Cannot be found!'),
+        ),
+      );
+    });
+  }
+}
