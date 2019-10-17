@@ -16,7 +16,6 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   final _formKey = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-
   //final _settings = Settings();
   bool _lang = false;
 
@@ -26,6 +25,7 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   void updateName(bool val) {
+
     setState(() {
       this._lang = val;
     });
@@ -64,6 +64,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                 //_settings.isArabic = val;
                                 saveName(val);
                                 this._lang = val;
+                                print(val);
                               });
                             })
                       ],

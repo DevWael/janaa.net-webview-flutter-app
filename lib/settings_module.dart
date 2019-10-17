@@ -1,6 +1,16 @@
+import 'dart:async';
+
 import 'package:janastore/prefrences.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Settings{
   bool isArabic = false;
+
+  Settings(){
+    getLangPreference().then(updateLang);
+  }
+
+  void updateLang(bool current) {
+    this.isArabic = current;
+  }
+
 }
