@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:janastore/config.dart';
+import 'package:janastore/prefrences.dart';
 import 'package:janastore/settings_module.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -13,7 +16,20 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   final _formKey = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  final _settings = Settings();
+
+  //final _settings = Settings();
+  bool _lang = false;
+
+  void initState() {
+    getLangPreference().then(updateName);
+    super.initState();
+  }
+
+  void updateName(bool val) {
+    setState(() {
+      this._lang = val;
+    });
+  }
 
   _showSnackBar(String message) {
     final snackBar = SnackBar(
@@ -41,18 +57,24 @@ class _SettingsPageState extends State<SettingsPage> {
                       children: <Widget>[
                         SwitchListTile(
                             title: Text('Arabic or English'),
-                            value: _settings.isArabic,
+                            value: _lang,
                             onChanged: (bool val) {
                               _showSnackBar('Options Saved');
                               setState(() {
-                                _settings.isArabic = val;
+                                //_settings.isArabic = val;
+                                saveName(val);
+                                this._lang = val;
                               });
                             })
                       ],
                     ),
-                  )
-          ),
-        )
-    );
+                  )),
+        ));
+  }
+
+  void saveName(val) {
+    bool value = val;
+    //print(val);
+    saveLangPreference(value);
   }
 }

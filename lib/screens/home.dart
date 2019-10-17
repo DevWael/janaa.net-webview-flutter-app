@@ -22,7 +22,7 @@ class _MyHomePageState extends State<MyHomePage> {
   String _cart = AppConfig.cart;
   String _myAccount = AppConfig.myAccount;
   String _shop = AppConfig.shop;
-
+  var _scaffoldKey = new GlobalKey<ScaffoldState>();
   _openLink(url) async {
     if (await canLaunch(url)) {
       await launch(url);
@@ -38,6 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: Text(widget.title),
         actions: <Widget>[
@@ -63,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
 //            ),
         ],
       ),
-      drawer: Drawer(
+      endDrawer: Drawer(
         child: ListView(
           children: <Widget>[
             DrawerHeader(

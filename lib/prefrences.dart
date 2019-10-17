@@ -1,15 +1,14 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 //saving language data
-Future<bool> saveNamePrefrence(String name) async {
+Future<bool> saveLangPreference(bool name) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  prefs.setString('appLang', name);
-  return prefs.commit();
+  prefs.setBool('appLang', name);
 }
 
 //getting language data
-Future<String> getNamePrefrence() async {
+Future<bool> getLangPreference() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  String lang = prefs.getString('appLang');
+  bool lang = prefs.getBool('appLang') == null ? false : prefs.getBool('appLang');
   return lang;
 }
