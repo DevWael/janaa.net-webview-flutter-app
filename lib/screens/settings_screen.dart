@@ -12,11 +12,21 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   final _formKey = GlobalKey<FormState>();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
   final _settings = Settings();
+
+  _showSnackBar(String message) {
+    final snackBar = SnackBar(
+      content: Text(message),
+      duration: Duration(seconds: 1),
+    );
+    _scaffoldKey.currentState.showSnackBar(snackBar);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        key: _scaffoldKey,
         appBar: AppBar(
           centerTitle: true,
           title: Text('Settings'),
@@ -33,13 +43,16 @@ class _SettingsPageState extends State<SettingsPage> {
                             title: Text('Arabic or English'),
                             value: _settings.isArabic,
                             onChanged: (bool val) {
+                              _showSnackBar('Options Saved');
                               setState(() {
                                 _settings.isArabic = val;
                               });
                             })
                       ],
                     ),
-                  )),
-        ));
+                  )
+          ),
+        )
+    );
   }
 }

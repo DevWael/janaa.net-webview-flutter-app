@@ -177,15 +177,15 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-//        body: WebView(
-//          key: _key,
-//          initialUrl: _url,
-//          javascriptMode: JavascriptMode.unrestricted,
-//          userAgent: AppConfig.userAgent,
-//          onWebViewCreated: (WebViewController _tmpWebController) {
-//            _webController = _tmpWebController;
-//          },
-//        )
+        body: WebView(
+          key: _key,
+          initialUrl: _url,
+          javascriptMode: JavascriptMode.unrestricted,
+          userAgent: AppConfig.userAgent,
+          onWebViewCreated: (WebViewController _tmpWebController) {
+            _webController = _tmpWebController;
+          },
+        )
     );
   }
 

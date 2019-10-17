@@ -26,6 +26,7 @@ dependencies:
   webview_flutter:
   font_awesome_flutter:
   url_launcher:
+  shared_preferences:
 
 dev_dependencies:
   flutter_test:
