@@ -6,7 +6,10 @@ import 'package:janastore/config.dart';
 import 'package:janastore/CustomListTile.dart';
 import 'package:janastore/prefrences.dart';
 import 'dart:io';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:share/share.dart';
 
 
 class MyHomePage extends StatefulWidget {
@@ -22,6 +25,7 @@ class _MyHomePageState extends State<MyHomePage> {
   WebViewController _webController;
   String tempUrl = AppConfig.siteUrl;
   String url = AppConfig.siteUrl;
+  String currentUrl = AppConfig.siteUrl;
   String _cart = AppConfig.cart;
   String _myAccount = AppConfig.myAccount;
   String _shop = AppConfig.shop;
@@ -80,11 +84,17 @@ class _MyHomePageState extends State<MyHomePage> {
     print(url);
     //_webController.loadUrl(url);
     return WebView(
-      key: _key,
+      key: UniqueKey(),
       initialUrl: url,
       javascriptMode: JavascriptMode.unrestricted,
       userAgent: AppConfig.userAgent,
       onPageFinished: _handleLoad,
+      gestureRecognizers: Set()
+        ..add(
+          Factory<VerticalDragGestureRecognizer>(
+                () => VerticalDragGestureRecognizer(),
+          ),
+        ),
       onWebViewCreated: (WebViewController _tmpWebController) {
         _webController = _tmpWebController;
       },
@@ -117,6 +127,12 @@ class _MyHomePageState extends State<MyHomePage> {
             IconButton(
               icon: Icon(Icons.supervisor_account),
               onPressed: goToMyAccount,
+            ),
+            IconButton(
+              icon: Icon(Icons.share),
+              onPressed: (){
+                Share.share(url);
+              },
             ),
 //            IconButton(
 //              icon: Icon(Icons.refresh),
@@ -244,7 +260,18 @@ class _MyHomePageState extends State<MyHomePage> {
             Column(
               children: < Widget > [
                 Expanded(
-                    child: webViewHolder()
+                    child: WebView(
+                      key: _key,
+                      initialUrl: url,
+                      javascriptMode: JavascriptMode.unrestricted,
+                      userAgent: AppConfig.userAgent,
+                      onPageFinished: _handleLoad,
+                      onWebViewCreated: (WebViewController _tmpWebController) {
+                        _webController = _tmpWebController;
+
+//                        updareCurrentUrl(_webController.currentUrl());
+                      },
+                    )
                 ),
               ],
             ),
@@ -259,24 +286,46 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 //webViewHolder()
+
+
   void reloadPage() {
+    setState(() {
+      _stackToView = 0;
+    });
     _webController.reload();
   }
 
   void goToMyAccount() {
     //_webController.reload();
+    setState(() {
+      _stackToView = 0;
+      currentUrl = url + _myAccount;
+    });
     _webController.loadUrl(url + _myAccount);
   }
 
   void goToCart() {
+    print('cart');
+    setState(() {
+      _stackToView = 0;
+      currentUrl = url + _cart;
+    });
     _webController.loadUrl(url + _cart);
   }
 
   void goToShop() {
+    setState(() {
+      _stackToView = 0;
+      currentUrl = url + _shop;
+    });
     _webController.loadUrl(url + _shop);
   }
 
   void goToHome() {
+    setState(() {
+      _stackToView = 0;
+      currentUrl = url;
+    });
     _webController.loadUrl(url);
   }
 }
