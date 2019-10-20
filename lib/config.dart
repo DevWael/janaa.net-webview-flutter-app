@@ -7,7 +7,7 @@ class AppConfig {
   static String myAccount = 'my-account';
   static String shop = 'shop';
   static String facebook = 'https://www.facebook.com/Mr.morgan90/';
-  static String whatsapp = 'https://wa.me/+201063604029';
+  static String whatsapp = 'whatsapp://send?phone=+201063604029';
   static String instagram = 'https://www.instagram.com/';
   static String youtube = 'https://www.youtube.com/';
   static String facebookColor = '#4267B2';
