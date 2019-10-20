@@ -31,7 +31,6 @@ class _MyHomePageState extends State<MyHomePage> {
   String _shop = AppConfig.shop;
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
   SharedPreferences sharedPreferences;
-  bool _testValue;
 
   //preloader
   num _stackToView = 1;
@@ -57,20 +56,46 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void updateLang(bool lang) {
-    SharedPreferences.getInstance().then((SharedPreferences sp) {
-      sharedPreferences = sp;
-      _testValue = sharedPreferences.getBool('appLang');
-      url = tempUrl + 'ar/';
-      // will be null if never previously saved
-      if (_testValue == null) {
-        _testValue = false;
-        //persist(_testValue); // set an initial value
-      } else {}
-      setState(() {});
+    if (lang == true) {
+      setState(() {
+        url = tempUrl + 'ar/';
+      });
     }
-    );
+  }
 
-    setState(() {});
+  webViewComponent() {// display the webview widget
+    print(url);
+
+    return WebView(
+      key: _key,
+      initialUrl: url,
+      javascriptMode: JavascriptMode.unrestricted,
+      userAgent: AppConfig.userAgent,
+      onPageFinished: _handleLoad,
+      onWebViewCreated: (WebViewController _tmpWebController) {
+        _webController = _tmpWebController;
+      },
+//                gestureRecognizers: Set()
+//                  ..add(Factory<VerticalDragGestureRecognizer>(() {
+//                    return VerticalDragGestureRecognizer()
+//                      ..onStart = (DragStartDetails details) {
+//                        print("darg start");
+//                      }
+//                      ..onUpdate = (DragUpdateDetails details) {
+//                        print("Drag update: $details");
+//                      }
+//                      ..onDown = (DragDownDetails details) {
+//                        print("Drag reload");
+//                        reloadPage();
+//                      }
+//                      ..onCancel = () {
+//                        print("Drag cacel");
+//                      }
+//                      ..onEnd = (DragEndDetails details) {
+//                        print("Drag end");
+//                      };
+//                  })),
+    );
   }
 
   Color hexToColor(String hexString, {String alphaChannel = 'FF'}) {
@@ -230,40 +255,7 @@ class _MyHomePageState extends State<MyHomePage> {
         index: _stackToView,
         children: [
           Column(
-            children: <Widget>[
-              Expanded(
-                  child: WebView(
-                key: _key,
-                initialUrl: url,
-                javascriptMode: JavascriptMode.unrestricted,
-                userAgent: AppConfig.userAgent,
-                onPageFinished: _handleLoad,
-                onWebViewCreated: (WebViewController _tmpWebController) {
-                  _webController = _tmpWebController;
-//                        updareCurrentUrl(_webController.currentUrl());
-                },
-//                gestureRecognizers: Set()
-//                  ..add(Factory<VerticalDragGestureRecognizer>(() {
-//                    return VerticalDragGestureRecognizer()
-//                      ..onStart = (DragStartDetails details) {
-//                        print("darg start");
-//                      }
-//                      ..onUpdate = (DragUpdateDetails details) {
-//                        print("Drag update: $details");
-//                      }
-//                      ..onDown = (DragDownDetails details) {
-//                        print("Drag reload");
-//                        reloadPage();
-//                      }
-//                      ..onCancel = () {
-//                        print("Drag cacel");
-//                      }
-//                      ..onEnd = (DragEndDetails details) {
-//                        print("Drag end");
-//                      };
-//                  })),
-              )),
-            ],
+            children: <Widget>[Expanded(child: webViewComponent())],
           ),
           Container(
             color: Colors.white,
