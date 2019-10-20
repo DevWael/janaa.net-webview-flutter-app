@@ -268,9 +268,27 @@ class _MyHomePageState extends State<MyHomePage> {
                       onPageFinished: _handleLoad,
                       onWebViewCreated: (WebViewController _tmpWebController) {
                         _webController = _tmpWebController;
-
 //                        updareCurrentUrl(_webController.currentUrl());
                       },
+                      gestureRecognizers: Set()
+                        ..add(Factory<VerticalDragGestureRecognizer>(() {
+                          return VerticalDragGestureRecognizer()
+                            ..onStart = (DragStartDetails details) {
+                              print("darg start");
+                            }
+                            ..onUpdate = (DragUpdateDetails details) {
+                              print("Drag update: $details");
+                            }
+                            ..onDown = (DragDownDetails details) {
+                              reloadPage();
+                            }
+                            ..onCancel = () {
+                              print("Drag cacel");
+                            }
+                            ..onEnd = (DragEndDetails details) {
+                              print("Drag end");
+                            };
+                        })),
                     )
                 ),
               ],
