@@ -32,7 +32,6 @@ class _MyHomePageState extends State<MyHomePage> {
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
   SharedPreferences sharedPreferences;
   bool _testValue;
-  var refreshKey = GlobalKey<RefreshIndicatorState>();
 
   //preloader
   num _stackToView = 1;
@@ -60,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void updateLang(bool lang) {
     SharedPreferences.getInstance().then((SharedPreferences sp) {
       sharedPreferences = sp;
-      _testValue = sharedPreferences.getBool('');
+      _testValue = sharedPreferences.getBool('appLang');
       url = tempUrl + 'ar/';
       // will be null if never previously saved
       if (_testValue == null) {
@@ -68,25 +67,10 @@ class _MyHomePageState extends State<MyHomePage> {
         //persist(_testValue); // set an initial value
       } else {}
       setState(() {});
-    });
+    }
+    );
 
     setState(() {});
-  }
-
-  webViewHolder() {
-    //url = tempUrl + 'ar/';
-    print(url);
-    //_webController.loadUrl(url);
-    return WebView(
-      key: UniqueKey(),
-      initialUrl: url,
-      javascriptMode: JavascriptMode.unrestricted,
-      userAgent: AppConfig.userAgent,
-      onPageFinished: _handleLoad,
-      onWebViewCreated: (WebViewController _tmpWebController) {
-        _webController = _tmpWebController;
-      },
-    );
   }
 
   Color hexToColor(String hexString, {String alphaChannel = 'FF'}) {
