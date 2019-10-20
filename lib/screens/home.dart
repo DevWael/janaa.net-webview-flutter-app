@@ -6,6 +6,8 @@ import 'package:janastore/config.dart';
 import 'package:janastore/CustomListTile.dart';
 import 'package:janastore/prefrences.dart';
 import 'dart:io';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -24,6 +26,20 @@ class _MyHomePageState extends State<MyHomePage> {
   String _myAccount = AppConfig.myAccount;
   String _shop = AppConfig.shop;
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
+  SharedPreferences sharedPreferences;
+  bool _testValue;
+
+  //preloader
+  num _stackToView = 1;
+
+  void _handleLoad(String value) {
+    setState(() {
+      _stackToView = 0;
+    });
+  }
+
+
+
 
   _openLink(url) async {
     if (await canLaunch(url)) {
@@ -40,28 +56,35 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void updateLang(bool lang) {
-    setState(() {
-      url = tempUrl + 'ar/';
-//      _webController.loadUrl(url);
-    });
-//    print(lang);
 
-//    if (lang == true) {
-//
-//    } else {
-//      this.url = temUrl;
-//    }
+    SharedPreferences.getInstance().then((SharedPreferences sp) {
+      sharedPreferences = sp;
+      _testValue = sharedPreferences.getBool('');
+      url = tempUrl + 'ar/';
+      // will be null if never previously saved
+      if (_testValue == null) {
+        _testValue = false;
+        //persist(_testValue); // set an initial value
+      }else{
+
+      }
+      setState(() {});
+    });
+
+    setState(() {
+    });
   }
 
   webViewHolder() {
     //url = tempUrl + 'ar/';
-//    print(url);
+    print(url);
     //_webController.loadUrl(url);
     return WebView(
       key: _key,
       initialUrl: url,
       javascriptMode: JavascriptMode.unrestricted,
       userAgent: AppConfig.userAgent,
+      onPageFinished: _handleLoad,
       onWebViewCreated: (WebViewController _tmpWebController) {
         _webController = _tmpWebController;
       },
@@ -215,9 +238,27 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
         ),
-        body: webViewHolder());
+        body:IndexedStack(
+          index: _stackToView,
+          children: [
+            Column(
+              children: < Widget > [
+                Expanded(
+                    child: webViewHolder()
+                ),
+              ],
+            ),
+            Container(
+              color: Colors.white,
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            ),
+          ],
+        )
+    );
   }
-
+//webViewHolder()
   void reloadPage() {
     _webController.reload();
   }
