@@ -9,16 +9,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: AppConfig.appTitle,
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-      ),
-      initialRoute: '/',
-      onGenerateRoute: RouteGenerator.generateRoute,
+        title: AppConfig.appTitle,
+        theme: ThemeData(
+          primarySwatch: Colors.green,
+        ),
+        initialRoute: '/',
+        onGenerateRoute: RouteGenerator.generateRoute,
+        debugShowCheckedModeBanner: false
     );
   }
 }
-
-
-
-
