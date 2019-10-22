@@ -13,17 +13,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:share/share.dart';
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title, this.lang}) : super(key: key);
+  MyHomePage({Key key, this.title}) : super(key: key);
   final String title;
-  final String lang;
+
+//  final String lang;
 
   @override
-  MyHomePageState createState() => MyHomePageState(lang);
+  MyHomePageState createState() => MyHomePageState();
 }
 
 class MyHomePageState extends State<MyHomePage> {
-
-  final _key = UniqueKey();
   WebViewController _webController;
   String tempUrl = AppConfig.siteUrl;
   String url = AppConfig.siteUrl;
@@ -35,18 +34,19 @@ class MyHomePageState extends State<MyHomePage> {
   SharedPreferences sharedPreferences;
 
   //preloader
-  num _stackToView = 1;
+  num _stackToView = 0;
 
   void _handleLoad(String value) {
     setState(() {
-      _stackToView = 0;
+//      _stackToView = 0;
     });
   }
 
   String lang;
-  MyHomePageState(String lang) {
-    url = AppConfig.siteUrl + lang;
-  }
+
+//  MyHomePageState(String lang) {
+  //url = AppConfig.siteUrl + lang;
+//  }
 
   _openLink(url) async {
     if (await canLaunch(url)) {
@@ -70,18 +70,27 @@ class MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  webViewComponent() {// display the webview widget
-    print(url);
-
-    return WebView(
-      key: _key,
-      initialUrl: url,
-      javascriptMode: JavascriptMode.unrestricted,
-      userAgent: AppConfig.userAgent,
-      onPageFinished: _handleLoad,
-      onWebViewCreated: (WebViewController _tmpWebController) {
-        _webController = _tmpWebController;
-      },
+  Widget webViewComponent(BuildContext context, AsyncSnapshot snapshot) {
+    // display the webview widget
+    bool value = snapshot.data;
+    if (value == true) {
+      url = tempUrl + 'ar/';
+    }
+    //print(context);
+    return IndexedStack(
+      index: 0,
+      children: [
+        Column(
+          children: <Widget>[
+            WebView(
+              // key: _key,
+              initialUrl: url,
+              javascriptMode: JavascriptMode.unrestricted,
+              userAgent: AppConfig.userAgent,
+              onPageFinished: _handleLoad,
+              onWebViewCreated: (WebViewController _tmpWebController) {
+                _webController = _tmpWebController;
+              },
 //                gestureRecognizers: Set()
 //                  ..add(Factory<VerticalDragGestureRecognizer>(() {
 //                    return VerticalDragGestureRecognizer()
@@ -102,7 +111,18 @@ class MyHomePageState extends State<MyHomePage> {
 //                        print("Drag end");
 //                      };
 //                  })),
+            )
+          ],
+        ),
+        Container(
+          color: Colors.white,
+          child: Center(
+            child: CircularProgressIndicator(),
+          ),
+        ),
+      ],
     );
+    //print(url);
   }
 
   Color hexToColor(String hexString, {String alphaChannel = 'FF'}) {
@@ -111,6 +131,27 @@ class MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    var futureBuilder = new FutureBuilder(
+      future: getLangPreference(),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.none:
+            return new Center(
+              child: Text('No Data.'),
+            );
+          case ConnectionState.waiting:
+            return new Center(
+              child: Text('Loading Language...'),
+            );
+          default:
+            if (snapshot.hasError)
+              return new Text('Error: ${snapshot.error}');
+            else
+              return webViewComponent(context, snapshot);
+        }
+      },
+    );
+
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
@@ -258,20 +299,7 @@ class MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      body: IndexedStack(
-        index: _stackToView,
-        children: [
-          Column(
-            children: <Widget>[Expanded(child: webViewComponent())],
-          ),
-          Container(
-            color: Colors.white,
-            child: Center(
-              child: CircularProgressIndicator(),
-            ),
-          ),
-        ],
-      ),
+      body: futureBuilder,
     );
   }
 

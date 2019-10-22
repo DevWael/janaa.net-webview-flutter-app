@@ -10,7 +10,7 @@ class RouteGenerator {
     switch (settings.name) {
       case '/':
         return MaterialPageRoute(
-            builder: (_) => MyHomePage(title: AppConfig.appTitle, lang: 'en/'));
+            builder: (_) => MyHomePage(title: AppConfig.appTitle));
       case '/settings':
         return MaterialPageRoute(
             builder: (_) => SettingsPage(
