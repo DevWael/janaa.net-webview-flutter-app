@@ -8,14 +8,16 @@ import 'package:janastore/prefrences.dart';
 import 'dart:io';
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key key, this.title, this.lang}) : super(key: key);
   final String title;
+  final String lang;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  MyHomePageState createState() => MyHomePageState(lang);
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class MyHomePageState extends State<MyHomePage> {
+
   final _key = UniqueKey();
   WebViewController _webController;
   String tempUrl = AppConfig.siteUrl;
@@ -24,6 +26,11 @@ class _MyHomePageState extends State<MyHomePage> {
   String _myAccount = AppConfig.myAccount;
   String _shop = AppConfig.shop;
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  String lang;
+  MyHomePageState(String lang) {
+    url = AppConfig.siteUrl + lang;
+  }
 
   _openLink(url) async {
     if (await canLaunch(url)) {
@@ -35,7 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    getLangPreference().then(updateLang);
+    //getLangPreference().then(updateLang);
     super.initState();
   }
 

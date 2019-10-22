@@ -2,15 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:janastore/screens/home.dart';
 import 'package:janastore/screens/settings_screen.dart';
 import 'package:janastore/config.dart';
+import 'package:janastore/prefrences.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
 //    final args = settings.arguments;
     switch (settings.name) {
       case '/':
-        return MaterialPageRoute(builder: (_) => MyHomePage(title: AppConfig.appTitle,));
+        return MaterialPageRoute(
+            builder: (_) => MyHomePage(title: AppConfig.appTitle, lang: 'en/'));
       case '/settings':
-        return MaterialPageRoute(builder: (_) => SettingsPage(title: 'Settings',));
+        return MaterialPageRoute(
+            builder: (_) => SettingsPage(
+                  title: 'Settings',
+                ));
       default:
         return _errorRoute();
     }
