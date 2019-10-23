@@ -75,22 +75,22 @@ class MyHomePageState extends State<MyHomePage> {
     bool value = snapshot.data;
     if (value == true) {
       url = tempUrl + 'ar/';
+    }else{
+      url = tempUrl;
     }
     //print(context);
     return IndexedStack(
       index: 0,
       children: [
-        Column(
-          children: <Widget>[
-            WebView(
-              // key: _key,
+        WebView(
+              key: UniqueKey(),
               initialUrl: url,
               javascriptMode: JavascriptMode.unrestricted,
               userAgent: AppConfig.userAgent,
-              onPageFinished: _handleLoad,
-              onWebViewCreated: (WebViewController _tmpWebController) {
-                _webController = _tmpWebController;
-              },
+              //onPageFinished: _handleLoad,
+              //onWebViewCreated: (WebViewController _tmpWebController) {
+                //_webController = _tmpWebController;
+              //},
 //                gestureRecognizers: Set()
 //                  ..add(Factory<VerticalDragGestureRecognizer>(() {
 //                    return VerticalDragGestureRecognizer()
@@ -111,9 +111,7 @@ class MyHomePageState extends State<MyHomePage> {
 //                        print("Drag end");
 //                      };
 //                  })),
-            )
-          ],
-        ),
+            ),
         Container(
           color: Colors.white,
           child: Center(
