@@ -25,8 +25,10 @@ class MyHomePageState extends State<MyHomePage> {
   String _myAccount = AppConfig.myAccount;
   String _shop = AppConfig.shop;
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
+
   //preloader
   num _stackToView = 0;
+
   void _handleLoad(String value) {
     setState(() {
 //      _stackToView = 0;
@@ -45,32 +47,27 @@ class MyHomePageState extends State<MyHomePage> {
     }
   }
 
-//  @override
-//  void initState() {
-//    super.initState();
-//  }
-
   Widget webViewComponent(BuildContext context, AsyncSnapshot snapshot) {
     // display the webview widget
     bool value = snapshot.data;
     if (value == true) {
       url = tempUrl + 'ar/';
-    }else{
+    } else {
       url = tempUrl;
     }
-    //print(context);
+
     return IndexedStack(
       index: 0,
       children: [
         WebView(
-              key: UniqueKey(),
-              initialUrl: url,
-              javascriptMode: JavascriptMode.unrestricted,
-              userAgent: AppConfig.userAgent,
-              //onPageFinished: _handleLoad,
-              onWebViewCreated: (WebViewController _tmpWebController) {
-                _webController = _tmpWebController;
-              },
+          key: UniqueKey(),
+          initialUrl: url,
+          javascriptMode: JavascriptMode.unrestricted,
+          userAgent: AppConfig.userAgent,
+          //onPageFinished: _handleLoad,
+          onWebViewCreated: (WebViewController _tmpWebController) {
+            _webController = _tmpWebController;
+          },
 //                gestureRecognizers: Set()
 //                  ..add(Factory<VerticalDragGestureRecognizer>(() {
 //                    return VerticalDragGestureRecognizer()
@@ -91,7 +88,7 @@ class MyHomePageState extends State<MyHomePage> {
 //                        print("Drag end");
 //                      };
 //                  })),
-            ),
+        ),
         Container(
           color: Colors.white,
           child: Center(
