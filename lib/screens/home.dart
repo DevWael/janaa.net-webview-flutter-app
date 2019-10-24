@@ -6,17 +6,11 @@ import 'package:janastore/config.dart';
 import 'package:janastore/CustomListTile.dart';
 import 'package:janastore/prefrences.dart';
 import 'dart:io';
-import 'dart:async';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:share/share.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
   final String title;
-
-//  final String lang;
 
   @override
   MyHomePageState createState() => MyHomePageState();
@@ -31,18 +25,13 @@ class MyHomePageState extends State<MyHomePage> {
   String _myAccount = AppConfig.myAccount;
   String _shop = AppConfig.shop;
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
-  SharedPreferences sharedPreferences;
-
   //preloader
   num _stackToView = 0;
-
   void _handleLoad(String value) {
     setState(() {
 //      _stackToView = 0;
     });
   }
-
-  String lang;
 
 //  MyHomePageState(String lang) {
   //url = AppConfig.siteUrl + lang;
@@ -56,19 +45,10 @@ class MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  @override
-  void initState() {
-    //getLangPreference().then(updateLang);
-    super.initState();
-  }
-
-  void updateLang(bool lang) {
-    if (lang == true) {
-      setState(() {
-        url = tempUrl + 'ar/';
-      });
-    }
-  }
+//  @override
+//  void initState() {
+//    super.initState();
+//  }
 
   Widget webViewComponent(BuildContext context, AsyncSnapshot snapshot) {
     // display the webview widget
@@ -88,9 +68,9 @@ class MyHomePageState extends State<MyHomePage> {
               javascriptMode: JavascriptMode.unrestricted,
               userAgent: AppConfig.userAgent,
               //onPageFinished: _handleLoad,
-              //onWebViewCreated: (WebViewController _tmpWebController) {
-                //_webController = _tmpWebController;
-              //},
+              onWebViewCreated: (WebViewController _tmpWebController) {
+                _webController = _tmpWebController;
+              },
 //                gestureRecognizers: Set()
 //                  ..add(Factory<VerticalDragGestureRecognizer>(() {
 //                    return VerticalDragGestureRecognizer()
@@ -120,7 +100,6 @@ class MyHomePageState extends State<MyHomePage> {
         ),
       ],
     );
-    //print(url);
   }
 
   Color hexToColor(String hexString, {String alphaChannel = 'FF'}) {
@@ -301,46 +280,23 @@ class MyHomePageState extends State<MyHomePage> {
     );
   }
 
-//webViewHolder()
-
   void reloadPage() {
-    setState(() {
-      _stackToView = 0;
-    });
     _webController.reload();
   }
 
   void goToMyAccount() {
-    //_webController.reload();
-    setState(() {
-      _stackToView = 0;
-      currentUrl = url + _myAccount;
-    });
     _webController.loadUrl(url + _myAccount);
   }
 
   void goToCart() {
-    print('cart');
-    setState(() {
-      _stackToView = 0;
-      currentUrl = url + _cart;
-    });
     _webController.loadUrl(url + _cart);
   }
 
   void goToShop() {
-    setState(() {
-      _stackToView = 0;
-      currentUrl = url + _shop;
-    });
     _webController.loadUrl(url + _shop);
   }
 
   void goToHome() {
-    setState(() {
-      _stackToView = 0;
-      currentUrl = url;
-    });
     _webController.loadUrl(url);
   }
 }
