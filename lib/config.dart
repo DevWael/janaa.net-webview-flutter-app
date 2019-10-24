@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class AppConfig {
   static String appTitle = 'JanaStore';
 //  static String userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36';
@@ -14,4 +16,7 @@ class AppConfig {
   static String whatsAppColor = '#128C7E';
   static String instagramColor = '#962FBF';
   static String youtubeColor = '#F70002';
+  static Color mainColor = Colors.green;
+  static Color gradientOne = Colors.green;
+  static Color gradientTwo = Colors.lightGreenAccent;
 }

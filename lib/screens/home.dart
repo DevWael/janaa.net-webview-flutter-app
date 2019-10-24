@@ -165,8 +165,8 @@ class MyHomePageState extends State<MyHomePage> {
             DrawerHeader(
               decoration: BoxDecoration(
                   gradient: LinearGradient(colors: <Color>[
-                Colors.green,
-                Colors.lightGreenAccent,
+                AppConfig.gradientOne,
+                AppConfig.gradientTwo,
               ])),
               child: Container(
                 child: Column(

@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: AppConfig.appTitle,
         theme: ThemeData(
-          primarySwatch: Colors.green,
+          primarySwatch: AppConfig.mainColor,
         ),
         initialRoute: '/',
         onGenerateRoute: RouteGenerator.generateRoute,
